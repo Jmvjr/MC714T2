@@ -1,10 +1,13 @@
 syntax = "proto3";
 
-package mutex;
-
 service Node {
-  rpc Lock(LockRequest) returns (LockResponse);
-  rpc Unlock(UnlockRequest) returns (UnlockResponse);
+  rpc Lock (LockRequest) returns (LockResponse);
+  rpc Unlock (UnlockRequest) returns (UnlockResponse);
+
+  rpc Election (ElectionRequest) returns (ElectionResponse);
+  rpc Coordinator (CoordinatorRequest) returns (CoordinatorResponse);
+
+  rpc Ping (PingRequest) returns (PingResponse);
 }
 
 message LockRequest {
@@ -25,4 +28,32 @@ message UnlockRequest {
 message UnlockResponse {
   uint64 timestamp = 1;
   uint64 node_id = 2;
+}
+
+message ElectionRequest { 
+  uint64 timestamp = 1; 
+  uint64 node_id = 2; 
+}
+
+message ElectionResponse { 
+  uint64 timestamp = 1; 
+  uint64 node_id = 2; 
+}
+
+message CoordinatorRequest { 
+  uint64 timestamp = 1; 
+  uint64 leader_id = 2; 
+  string leader_address = 3; 
+}
+
+message CoordinatorResponse { 
+  uint64 timestamp = 1; 
+}
+
+message PingRequest { 
+  uint64 timestamp = 1; 
+}
+
+message PingResponse { 
+  uint64 timestamp = 1; 
 }

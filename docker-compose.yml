@@ -1,36 +1,57 @@
+version: '3.8'
+
 services:
   node1:
     build: .
-    container_name: lamport-node1
     environment:
       NODE_ID: 1
       NODE_PORT: 50051
-      PEERS: 2=node2:50051,3=node3:50051
+      PEERS: 2=node2:50052,3=node3:50053,4=node4:50054,5=node5:50055
       AUTO_DEMO: "true"
-      DEMO_DELAY: 4
-      DEMO_HOLD_TIME: 5
+      DEMO_DELAY: 2
     ports:
       - "50051:50051"
 
   node2:
     build: .
-    container_name: lamport-node2
     environment:
       NODE_ID: 2
-      NODE_PORT: 50051
-      PEERS: 1=node1:50051,3=node3:50051
+      NODE_PORT: 50052
+      PEERS: 1=node1:50051,3=node3:50053,4=node4:50054,5=node5:50055
       AUTO_DEMO: "true"
-      DEMO_DELAY: 10
-      DEMO_HOLD_TIME: 5
+      DEMO_DELAY: 5
     ports:
-      - "50052:50051"
+      - "50052:50052"
 
   node3:
     build: .
-    container_name: lamport-node3
     environment:
       NODE_ID: 3
-      NODE_PORT: 50051
-      PEERS: 1=node1:50051,2=node2:50051
+      NODE_PORT: 50053
+      PEERS: 1=node1:50051,2=node2:50052,4=node4:50054,5=node5:50055
+      AUTO_DEMO: "true"
+      DEMO_DELAY: 8
     ports:
-      - "50053:50051"
+      - "50053:50053"
+
+  node4:
+    build: .
+    environment:
+      NODE_ID: 4
+      NODE_PORT: 50054
+      PEERS: 1=node1:50051,2=node2:50052,3=node3:50053,5=node5:50055
+      AUTO_DEMO: "true"
+      DEMO_DELAY: 12
+    ports:
+      - "50054:50054"
+
+  node5:
+    build: .
+    environment:
+      NODE_ID: 5
+      NODE_PORT: 50055
+      PEERS: 1=node1:50051,2=node2:50052,3=node3:50053,4=node4:50054
+      AUTO_DEMO: "true"
+      DEMO_DELAY: 20
+    ports:
+      - "50055:50055"
